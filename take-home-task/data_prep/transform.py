@@ -2,7 +2,10 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import count, sum as _sum, col, count, when, avg, max as _max, min as _min, regexp_replace, lower, concat_ws, collect_set, array_sort
 from pyspark.sql.types import DecimalType
 
+
 spark = SparkSession.builder.appName("transform").getOrCreate()
+
+spark.conf.set("spark.sql.shuffle.partitions", 1)
 
 df = spark.read.csv("data/transactions.csv", header=True, inferSchema=True)
 
